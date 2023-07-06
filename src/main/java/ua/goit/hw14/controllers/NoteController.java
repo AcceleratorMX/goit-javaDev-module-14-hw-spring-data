@@ -22,6 +22,18 @@ public class NoteController {
         return "list";
     }
 
+    @GetMapping("/create")
+    public String getCreateNoteForm(Model model) {
+        model.addAttribute("note", new Note());
+        return "create";
+    }
+
+    @PostMapping("/create")
+    public String createNote(@ModelAttribute Note note) {
+        noteService.add(note);
+        return "redirect:/note/list";
+    }
+
     @GetMapping("/edit")
     public String getEditNoteForm(@RequestParam("id") long id, Model model) {
         Note note = noteService.getById(id);
