@@ -4,28 +4,83 @@
 	<meta charset="UTF-8">
 	<title>Notes</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+	<style>
+		<!-- Light -->
+        body.light-theme {
+            background-color: #E9FFE8;
+            color: #000;
+        }
+
+        .light-theme .card {
+            background-color: #FAFFB0;
+            color: #000;
+        }
+
+		<!-- Dark -->
+        body.dark-theme {
+            background-color: #001410;
+            color: #fff;
+        }
+
+        .dark-theme .card {
+            background-color: #005C49;
+            color: #fff;
+        }
+
+    </style>
 </head>
-<body>
+<body class="light-theme">
 <div class="container">
-	<div class="d-flex justify-content-between align-items-center mb-3">
-		<h1>Notes</h1>
-		<a href="/note/create" class="btn btn-primary">New Note</a>
-	</div>
-	<div class="row row-cols-1 row-cols-md-3 g-4">
-		<div th:each="note : ${notes}" class="col">
-			<div class="card">
-				<div class="card-body">
-					<h5 class="card-title" th:text="${note.title}"></h5>
-					<p class="card-text" th:text="${note.content}"></p>
-					<a th:href="@{/note/edit(id=${note.id})}" class="btn btn-primary">Edit</a>
-					<form th:action="@{/note/delete}" method="post" class="d-inline">
-						<input type="hidden" name="id" th:value="${note.id}">
-						<button type="submit" class="btn btn-danger">Delete</button>
-					</form>
-				</div>
+	<header>
+		<div class="container text-center mb-3">
+			<button id="themeToggleBtn" class="btn btn-primary position-fixed top-0 end-0 mt-3 me-3">Theme</button>
+			<h1>Notes</h1>
+			<div class="new-note-btn">
+				<a href="/note/create" class="btn btn-primary">New Note</a>
 			</div>
 		</div>
-	</div>
+
+	</header>
+
+	<main class="main">
+		<section class="notes-section">
+			<div class="row row-cols-1 row-cols-md-3 g-4">
+				<div th:each="note : ${notes}" class="col">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title" th:text="${note.title}"></h5>
+							<p class="card-text" th:text="${note.content}"></p>
+							<a th:href="@{/note/edit(id=${note.id})}" class="btn btn-primary">Edit</a>
+							<form th:action="@{/note/delete}" method="post" class="d-inline">
+								<input type="hidden" name="id" th:value="${note.id}">
+								<button type="submit" class="btn btn-danger">Delete</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer"></footer>
 </div>
+
+<script>
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const body = document.body;
+
+    themeToggleBtn.addEventListener('click', function () {
+        const isDarkTheme = body.classList.contains('dark-theme');
+
+        if (isDarkTheme) {
+            body.classList.remove('dark-theme');
+            body.classList.add('light-theme');
+        } else {
+            body.classList.remove('light-theme');
+            body.classList.add('dark-theme');
+        }
+    });
+</script>
+
 </body>
 </html>
