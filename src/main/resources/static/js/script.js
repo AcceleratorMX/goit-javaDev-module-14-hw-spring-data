@@ -36,3 +36,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
+function autoResize() {
+  const textarea = document.getElementById("content");
+  textarea.style.height = "auto";
+  textarea.style.height = `${textarea.scrollHeight}px`;
+}
+
