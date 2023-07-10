@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     body.classList.toggle('dark-theme');
     body.classList.toggle('light-theme');
 
-    // Save in storage
+    // Save in localStorage
     const currentTheme = body.classList.contains('dark-theme') ? 'dark-theme' : 'light-theme';
     localStorage.setItem('theme', currentTheme);
 
