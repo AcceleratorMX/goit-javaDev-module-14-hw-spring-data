@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   const themeToggleBtn = document.getElementById('themeToggleBtn');
+  const lightThemeIcon = document.getElementById('lightThemeIcon');
+  const darkThemeIcon = document.getElementById('darkThemeIcon');
   const body = document.body;
 
   // Check theme in localStorage
@@ -15,11 +17,12 @@ document.addEventListener('DOMContentLoaded', function() {
     body.classList.toggle('dark-theme');
     body.classList.toggle('light-theme');
 
-    // Save in localStorage
+    // Save in storage
     const currentTheme = body.classList.contains('dark-theme') ? 'dark-theme' : 'light-theme';
     localStorage.setItem('theme', currentTheme);
 
     applyTheme(currentTheme);
+    updateThemeIcon(currentTheme);
   });
 
   // Apply theme
@@ -34,6 +37,21 @@ document.addEventListener('DOMContentLoaded', function() {
       document.documentElement.style.setProperty('--card-background-color', '#FAFFB0');
     }
   }
+
+  // Update theme icon
+  function updateThemeIcon(theme) {
+    if (theme === 'light-theme') {
+      lightThemeIcon.classList.remove('d-none');
+      darkThemeIcon.classList.add('d-none');
+    } else {
+      lightThemeIcon.classList.add('d-none');
+      darkThemeIcon.classList.remove('d-none');
+    }
+  }
+
+  // Update theme icon on page load
+  const currentTheme = body.classList.contains('dark-theme') ? 'dark-theme' : 'light-theme';
+  updateThemeIcon(currentTheme);
 });
 
 function autoResize() {
